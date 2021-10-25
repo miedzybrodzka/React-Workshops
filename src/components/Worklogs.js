@@ -12,6 +12,9 @@ const Worklogs = (props) => {
  //console.log(data);
     return(
         <div className='wrap'>
+            <div className='record'>
+                <center><EntryButtons first /></center>
+            </div>
               {data?.entryMany?.map((elem, indx) => <div key={indx}>
                 <div className='record'>
                     <input  type='text' value={elem.startTime}/>

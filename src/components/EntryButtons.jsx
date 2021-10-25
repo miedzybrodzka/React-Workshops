@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const EntryButtons = () => {
+const EntryButtons = ({first = false}) => {
     const addFunction = () => {
       console.log(1)
     }
@@ -13,7 +13,7 @@ const EntryButtons = () => {
     return (
       <div className='buttonWrap'>
         <button onClick={addFunction} className='addButton'>+</button>
-        <button onClick={removeButton} className='removeButton'>-</button>
+        {!first && <button onClick={removeButton} className='removeButton'>-</button>}
       </div>
     )
 }
