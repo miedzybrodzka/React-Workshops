@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Queries from './Graphql';
+import mutations from './Graphql/Mutations';
 import {useQuery} from '@apollo/client';
 import getUserName from './Authorization';
 
@@ -8,14 +9,21 @@ const Worklogs = (props) => {
     const day = new Date(props.date.getTime() - props.date.getTimezoneOffset()*60*1000);
     const actualDate = day.toISOString().replace(/\T(.*)/, "T00:00:00.000Z");
     const  { loading, error, data } = useQuery(Queries.GET_ENTRIES_FOR_DATE, {variables: {date: actualDate}, context: {headers: {"user-name": getUserName()}}});
+   // const  { loading, error, data } = useQuery(mutations.GET_ENTRIES_FOR_DATE, {variables: {date: actualDate}, context: {headers: {"user-name": getUserName()}}});
     const lastElement = data?.entryMany?.length-1;
- //console.log(data);
+console.log(data);
+
+   
+
+    
+
+    
     return(
         <div className='wrap'>
               {data?.entryMany?.map((elem, indx) => <div key={indx}>
                 <div className='record'>
-                    <input  type='text' value={elem.startTime}/>
-                    <input className='rightInput' type='text' value={elem.endTime}/>
+                    <input  type='text'  value={elem.startTime} />
+                    <input name={indx} className='rightInput' type='text' value={elem.endTime} />
                     <select className='selectInput' >
                         <option>{elem.tag.tagBundle.name}</option>
                     </select>

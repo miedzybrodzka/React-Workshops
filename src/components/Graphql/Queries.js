@@ -27,7 +27,7 @@ const Queries = {
       `,
 
   GET_ALL_ENTRIES: gql`
-    query GetAllEntries {
+   query GetAllEntries {
         entryMany {
           _id 
           startTime
