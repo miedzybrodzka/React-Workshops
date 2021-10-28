@@ -10,18 +10,19 @@ import {
   useQuery,
   gql
 } from "@apollo/client";
+import Modal from 'react-modal';
 
 const client = new ApolloClient({
   uri: 'https://worklog-on-steroids.herokuapp.com/api/ql_open',
   cache: new InMemoryCache()
 });
-
+Modal.setAppElement('#root');
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <App />
-    </ApolloProvider>,
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

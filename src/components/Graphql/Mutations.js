@@ -1,7 +1,16 @@
-import {gql} from '@apollo/client';
+import { gql } from '@apollo/client';
 
-const mutations = {
-    CREATE_ENTRY: gql`
+const Mutations = {
+  CREATE_BUNDLE: gql`
+    mutation CreateBundle($record: CreateOneTagBundleInput!){
+      tagBundleCreateOne(record: $record){
+        record {
+          name 
+        }
+      }
+    }`
+  ,
+  CREATE_ENTRY: gql`
     mutation CreateEntry($record: EntryCreateTypeInput) {
         createEntry(record: $record){
           startTime
@@ -9,7 +18,7 @@ const mutations = {
         }
       }
       `,
-      REMOVE_ENTRY: gql`
+  REMOVE_ENTRY: gql`
       mutation removeMyEntry{
         entryRemoveById(_id: "617199181c2f1ac093d3dcfd") {
           recordId
@@ -17,4 +26,4 @@ const mutations = {
       }`
 }
 
-export default mutations;
+export default Mutations;
