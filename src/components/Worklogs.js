@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Queries from './Graphql';
 import {useQuery} from '@apollo/client';
 import getUserName from './Authorization';
-
+import EntryButtons from './EntryButtons';
 
 const Worklogs = (props) => {
     const day = new Date(props.date.getTime() - props.date.getTimezoneOffset()*60*1000);
@@ -12,6 +12,9 @@ const Worklogs = (props) => {
  //console.log(data);
     return(
         <div className='wrap'>
+            <div className='record'>
+                <center><EntryButtons first /></center>
+            </div>
               {data?.entryMany?.map((elem, indx) => <div key={indx}>
                 <div className='record'>
                     <input  type='text' value={elem.startTime}/>
@@ -20,10 +23,7 @@ const Worklogs = (props) => {
                         <option>{elem.tag.tagBundle.name}</option>
                     </select>
                     <input  type='text'/>
-                    <div className='buttonWrap'>
-                        <button className='addButton'>+</button>
-                        <button className='removeButton'>-</button>
-                    </div>
+                    <EntryButtons />
                 </div>
                 </div>)}
                 <div className='record'>
