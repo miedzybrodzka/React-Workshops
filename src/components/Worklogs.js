@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Queries from './Graphql';
 import Mutations from './Graphql/Mutations';
 import {useQuery, useMutation} from '@apollo/client';
@@ -18,28 +18,41 @@ const Worklogs = (props) => {
             Queries.GET_ENTRIES_FOR_DATE,
             'getEntriesForDate'
         ]});
-    const lastElement = data?.entryMany?.length-1;
-    let lastElementStartTime = data?.entryMany?.[lastElement]?.endTime;
-    const newEntryObj = {tagBundleName:'', tagName:'', startTime: lastElementStartTime, endTime: ''}
+    
+    const newEntryObj = {tagBundleName:'', tagName:'', startTime: '', endTime: ''}
     const [newEntry, setNewEntry] = useState(newEntryObj);
+    console.log(newEntry);
 
-
+    useEffect(() => {
+        const lastElement = data?.entryMany?.length-1;
+        let lastElementStartTime = data?.entryMany?.[lastElement]?.endTime;
+        console.log({lastElementStartTime});
+        setNewEntry({
+            ...newEntry,
+            startTime: lastElementStartTime
+        })
+    
+    },[data]);
 
 
    
 
     const addEntrie = () => {
+        if(newEntry.tagBundleName && newEntry.tagName && newEntry.startTime && newEntry.endTime){
         createEntry({variables: {record: newEntry}, context: {headers: {"user-name": getUserName()}}});
+        setNewEntry({tagBundleName:'', tagName:'', startTime: '', endTime: ''});
+        }
     }
 
     const setNewEntryField = (event, field) => {
+        console.log('hej');
         switch(field) {
             case 'startTime':
                 setNewEntry({
                     ...newEntry,
                     startTime: event.target.value,
                 })
-                lastElementStartTime = ''
+                
             break;
             case 'endTime':
                 setNewEntry({
@@ -68,9 +81,9 @@ const Worklogs = (props) => {
         <div className='wrap'>
                 <Entries  loading={loading} dataEntries={data?.entryMany} dataBundles={objct?.data?.tagBundleMany}/>
                 <div className='record'>
-                    <input  type='text' value={lastElementStartTime || newEntry.startTime} onChange={(event) => setNewEntryField(event,'startTime')}/> 
-                    <input className='rightInput' type='text' value={newEntry.endTime} onChange={(event) => setNewEntryField(event,'endTime')}/>
-                    <select className='selectInput' value={newEntry.tagBundleName} onChange={(event) => setNewEntryField(event,'tagBundleName')}>
+                    <input  type='text' value={newEntry.startTime} onChange={(event) => setNewEntryField(event,'startTime')} onBlur={addEntrie}/> 
+                    <input className='rightInput' type='text' value={newEntry.endTime} onChange={(event) => setNewEntryField(event,'endTime')} onBlur={addEntrie}/>
+                    <select className='selectInput' value={newEntry.tagBundleName} onChange={(event) => setNewEntryField(event,'tagBundleName')} onBlur={addEntrie}>
                         <option></option>
                     {objct?.data?.tagBundleMany?.map((elem, indx) =>
                         <option key={indx}>{elem.name}</option>)}
