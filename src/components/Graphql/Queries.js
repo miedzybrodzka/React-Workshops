@@ -7,6 +7,9 @@ const Queries = {
       getProfile{
         oauthId
           }
+        	tagBundleMany{
+            name
+          }
       }
     `,
     GET_ENTRIES_FOR_DATE: gql`query getEntriesForDate($date: Date) {
@@ -27,7 +30,7 @@ const Queries = {
       `,
 
   GET_ALL_ENTRIES: gql`
-    query GetAllEntries {
+   query GetAllEntries {
         entryMany {
           _id 
           startTime
@@ -38,14 +41,6 @@ const Queries = {
         }
       }
     `,
-  CREATE_ENTRY: gql`
-  mutation CreateEntry {
-      createEntry(record:{tagBundleName:"selleo", tagName:"test", startTime:"00:22", endTime:"00:13"}){
-        startTime
-        endTime
-      }
-    }
-  `
 }
 
 export default Queries;
