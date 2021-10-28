@@ -14,7 +14,6 @@ const Login = () => {
     const [userNameValue, setUserNameValue] = useState('');
     const [getProfile, { loading, error, data }] = useLazyQuery(Queries.GET_PROFILE);
     let history = useHistory();
-    console.log(data);
     useEffect(() => {
         const userName = getUserName();
         if(userName) {
