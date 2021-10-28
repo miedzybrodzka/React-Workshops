@@ -50,15 +50,6 @@ const Queries = {
     }
   `,
 
-  CREATE_BUNDLE: gql`
-  mutation CreateBundle($record: CreateOneTagBundleInput!){
-    tagBundleCreateOne(record: $record){
-      record {
-        name 
-      }
-    }
-  }
-  `,
   GET_BUNDLE_MANY: gql`
   query {
     tagBundleMany {
