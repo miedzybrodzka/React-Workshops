@@ -45,7 +45,7 @@ const OneEntry = ({elem, dataBundles}) => {
             <input  type='text'  value={value.startTime} onChange={(event) => setNewEntryField(event,'startTime')}/>
             <input className='rightInput' type='text' value={value.endTime} onChange={(event) => setNewEntryField(event,'endTime')} />
             <select className='selectInput' value={value.tagBundleName} onChange={(event) => setNewEntryField(event,'tagBundleName')}>
-                {dataBundles.map((val, indx) =>
+                {dataBundles?.map((val, indx) =>
                 <option key={indx}>{val.name}</option>)}
             </select>
             <input  type='text' value={value.tagName } onChange={(event) => setNewEntryField(event,'tagName')}/> 

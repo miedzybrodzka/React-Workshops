@@ -9,6 +9,9 @@ const Queries = {
           }
         	tagBundleMany{
             name
+            tags {
+              name
+            }
           }
       }
     `,
@@ -54,6 +57,7 @@ const Queries = {
   query {
     tagBundleMany {
       name
+      
     }
   }`
 

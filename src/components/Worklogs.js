@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Queries from './Graphql';
 import Mutations from './Graphql/Mutations';
 import {useQuery, useMutation} from '@apollo/client';
 import getUserName from './Authorization';
 import Entries from './Entry';
+import {matchSorter} from 'match-sorter'
 
 
 
@@ -22,8 +23,19 @@ const Worklogs = (props) => {
     let lastElementStartTime = data?.entryMany?.[lastElement]?.endTime;
     const newEntryObj = {tagBundleName:'', tagName:'', startTime: lastElementStartTime, endTime: ''}
     const [newEntry, setNewEntry] = useState(newEntryObj);
+    const [tags, setTags] = useState([]);
+    console.log(newEntry);
 
-
+    useEffect(() => {
+        
+        const lastElement = data?.entryMany?.length-1;
+        let lastElementStartTime = data?.entryMany?.[lastElement]?.endTime;
+        setNewEntry({
+            ...newEntry,
+            startTime: lastElementStartTime
+        })
+    
+    },[data]);
 
 
    
@@ -75,7 +87,7 @@ const Worklogs = (props) => {
                     {objct?.data?.tagBundleMany?.map((elem, indx) =>
                         <option key={indx}>{elem.name}</option>)}
                     </select>
-                    <input  type='text' onBlur={addEntrie} value={newEntry.tagName} onChange={(event) => setNewEntryField(event,'tagName') }/>
+                    <input  type='text' onBlur={addEntrie} value={newEntry.tagName} onChange={(event) => setNewEntryField(event,'tagName') } disabled={newEntry.tagBundleName === ''}/>
                     <div className='buttonWrap'>
                         <button className='addButton'>+</button>
                         <button className='removeButton'>-</button>
