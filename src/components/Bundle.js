@@ -6,6 +6,8 @@ import { gql, useMutation } from "@apollo/client";
 import '../styles/bundle.css';
 import TagBundle from '../components/TagBundle';
 import useProfile from '../queries/useProfile';
+import useTagBundle, { GET_TAG_BUNDLE_BY_ID } from '../queries/useTagBundle';
+
 
 const CREATE_BUNDLE = gql`
 mutation CreateBundle($record: CreateOneTagBundleInput!){
@@ -37,16 +39,16 @@ const Bundle = () => {
                 }
             }
         )
-        console.log(newText);
     }
 
     const { data, loading, error } = useFetchTagBundle();
-    console.log(data);
 
     const { data: profileData, loading: profileLoading, error: profileError } = useProfile();
+    const { data: tagData, loading: tagLoading, error: tagError } = useTagBundle();
 
-    if (loading || profileLoading) return <div className="titleText">LOADING...</div>
-    if (error || profileError) return <div className="titleText">ERROR: </div>
+
+    if (loading || profileLoading || tagLoading) return <div className="titleText">LOADING...</div>
+    if (error || profileError || tagError) return <div className="titleText">ERROR: </div>
 
     return (
         <div>
@@ -56,7 +58,7 @@ const Bundle = () => {
                 {data.map((singleBundle) => {
                     return (
                         <TagBundle key={singleBundle._id} singleBundle={singleBundle}
-                            profileData={profileData}
+                            profileData={profileData} tagData={tagData} _id={singleBundle._id}
                         />
                     );
                 })}

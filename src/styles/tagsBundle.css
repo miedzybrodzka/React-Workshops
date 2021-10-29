@@ -1,0 +1,88 @@
+  .buttonBundle {
+    backface-visibility: hidden;
+  position: relative;
+  width: 350px;
+  height: 50px;
+  cursor: pointer;
+  display: inline-block;
+  white-space: nowrap;
+  background: #fff;
+  border-radius: 0px;
+  border: 02px solid #444;
+  border-width: 02px 02px 02px 02px;
+  padding: 5px 20px 5px 20px;
+    color: #000;
+  font-size: 16px;
+  font-family: Helvetica Neue;
+  font-weight: 900;
+  font-style: normal;
+}
+  .buttonBundle > div {
+    color: #999;
+  font-size: 10px;
+  font-family: Helvetica Neue;
+  font-weight: initial;
+  font-style: normal;
+  text-align: center;
+  margin: 0px 0px 0px 0px
+  }
+  .buttonBundle > i {
+    font-size: 1em;
+  border-radius: 0px;
+  border: 0px solid transparent;
+  border-width: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  position: static
+  }
+  .buttonBundle > .ld {
+    font-size: initial
+  }
+
+  .name{
+      font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .bundleName{
+    font-family: Arial, Helvetica, sans-serif;
+
+  }
+
+    .closeButton {
+      backface-visibility: hidden;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap;
+    background: linear-gradient(180deg,#ff7755 0%,#aa4411 100%);
+    border-radius: 0px;
+    border: 1px solid #931;
+    border-width: 1px 1px 1px 1px;
+    padding: 10px 15px 10px 15px;
+      color: #fff;
+    font-size: initial;
+    font-family: Helvetica Neue;
+    font-weight: 900;
+    font-style: normal
+    }
+    .closeButton > div {
+      color: #999;
+    font-size: 10px;
+    font-family: Helvetica Neue;
+    font-weight: initial;
+    font-style: normal;
+    text-align: center;
+    margin: 0px 0px 0px 0px
+    }
+    .closeButton > i {
+      font-size: 1em;
+    border-radius: 0px;
+    border: 0px solid transparent;
+    border-width: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    position: static
+    }
+    .closeButton > .ld {
+      font-size: initial
+    }

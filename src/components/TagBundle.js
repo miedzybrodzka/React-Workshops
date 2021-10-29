@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { gql, useMutation } from "@apollo/client";
-import '../queries/useProfile';
+import useProfile from '../queries/useProfile';
+import useTagBundle from '../queries/useTagBundle';
+import css from '../styles/tagsBundle.css';
 
 const UPDATE_BUNDLE = gql`
 mutation updateBundle($_id: MongoID!, $record: UpdateByIdTagBundleInput!) {
@@ -18,10 +20,14 @@ const TagBundle = (props) => {
 
     const {
         singleBundle,
-        profileData
+        profileData,
+        _id,
+        tagData
     } = props;
 
+
     const isCreator = singleBundle.creatorId === profileData._id;
+    const tags = useTagBundle(_id);
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -40,16 +46,14 @@ const TagBundle = (props) => {
     const typeDescribe = (event) => {
         setTextInTextArea(event.target.value);
     }
-
     const saveDescription = () => {
-        console.log('ts')
 
         if (isCreator) {
-            console.log('ts2')
             updateBundle(
                 {
                     variables: {
                         _id: singleBundle._id,
+
                         record: {
                             description: textInTextArea
                         }
@@ -57,7 +61,7 @@ const TagBundle = (props) => {
                 }
             );
         } else {
-            alert('Nie ma dostępu');
+            alert("You don't have access.");
         }
 
     }
@@ -65,16 +69,29 @@ const TagBundle = (props) => {
 
     return (
         <li>
-            <button onClick={openModal}>
+            <button onClick={openModal} className="buttonBundle">
                 {singleBundle.name}
             </button>
             <Modal isOpen={modalIsOpen}
                 onRequestClose={closeModal}>
-                <h3>Name:</h3>
-                <h3>{singleBundle.name}</h3>
+                <div>
+                    <h3 className="name">Name:</h3>
+                    <h3 className="bundleName">{singleBundle.name}</h3></div>
                 <h3>Description:</h3>
-                <textarea value={textInTextArea} onChange={typeDescribe} placeholder="Type something..." onBlur={saveDescription} />
-                <button onClick={closeModal}>Close</button>
+                <textarea value={textInTextArea} onChange={typeDescribe} placeholder={singleBundle.description} onBlur={saveDescription} />
+                <div>
+                    <ol>{tagData && tagData.map((tagsBundle) => {
+                        console.log(tagData);
+                        return (
+                            <div key={tagsBundle._id}>
+                                <span> Tags: {tagsBundle.tags.name}
+                                </span>
+                            </div>
+                        );
+                    })}
+                    </ol>
+                </div>
+                <div><button className="closeButton" onClick={closeModal}>Close</button></div>
             </Modal>
         </li>
     );

@@ -55,6 +55,20 @@ const Queries = {
     tagBundleMany {
       name
     }
+  }`,
+
+  GET_TAG_BUNDLE_BY_ID: gql`
+  query tagBundleById($id: MongoID!){
+    tagBundleById(
+     _id: $id
+    ){
+      name
+      _id
+      description
+      tags{
+        name
+      }
+    }
   }`
 
 }
